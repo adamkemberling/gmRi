@@ -23,8 +23,8 @@
 #' @examples ggplot2::ggplot(mtcars) + theme_gmri()
 theme_gmri <- function(
     base_size = 10,
-    base_family  = "sans",
-    title_family = "sans",
+    base_family  = "Avenir",
+    title_family = "Avenir",
     facet_color  = "blue economy teal",
     ...) {
 
