@@ -7,6 +7,7 @@
 
 
 
+
 # base settings from {ggthemes}
 #' @title GMRI ggplot2 theme for blog-style plots
 #'
@@ -20,18 +21,19 @@
 #' @export
 #'
 #' @examples ggplot2::ggplot(mtcars) + theme_gmri()
-theme_gmri <- function(base_size = 10,
-                       base_family  = "sans",
-                       title_family = "sans",
-                       facet_color  = "blue economy teal",
-                       ...) {
+theme_gmri <- function(
+    base_size = 10,
+    base_family  = "sans",
+    title_family = "sans",
+    facet_color  = "blue economy teal",
+    ...) {
 
   # Color from gmRi palette, sets background color for facet strips
   if(facet_color %in% c(
-    "seafood purple", "midnight blue", "dark blue", "gmri blue", "ecosystems cyan",
-    "blue economy teal", "moss green", "warm yellow", "lv orange", "climate change red",
-    "light gray", "dark gray")){
-    facet_hex <- gmri_cols()[facet_color]
+      "seafood purple", "midnight blue", "dark blue", "gmri blue", "ecosystems cyan",
+      "blue economy teal", "moss green", "warm yellow", "lv orange", "climate change red",
+      "light gray", "dark gray")){
+      facet_hex <- gmri_cols()[facet_color]
   } else {
     facet_hex <- facet_color
   }
@@ -49,8 +51,7 @@ theme_gmri <- function(base_size = 10,
         fill = "transparent",
         linetype = 0,
         colour = NA),
-      text  = ggplot2::element_text(colour = "black"),
-      title = ggplot2::element_text(family = title_family, size = 12),
+      text  = ggplot2::element_text(family = base_family, colour = "black"),
 
       # Axis elements
       axis.text.x  = ggplot2::element_text(colour = NULL),
@@ -65,25 +66,25 @@ theme_gmri <- function(base_size = 10,
 
       # Legend Elements
       legend.background = ggplot2::element_rect(),
-      legend.title      = ggplot2::element_text(size = 9),
-      legend.text       = ggplot2::element_text(size = 9),
+      legend.title      = ggplot2::element_text(size = 12, face = "bold"),
+      legend.text       = ggplot2::element_text(size = 10),
 
       # Panel/Grid Setup
       panel.grid = ggplot2::element_line(
-        colour = NULL,
         linetype = 3,
         linewidth = 0.3,
-        color = "gray80"),
+        color = "#D3D3D330"),
       panel.grid.major   = ggplot2::element_line(colour = "black"),
       panel.grid.major.x = ggplot2::element_blank(),
       panel.grid.minor   = ggplot2::element_blank(),
 
       # Title and Caption Details
-      plot.title    = ggplot2::element_text(hjust = 0, face = "bold", size = 14),
+      plot.title    = ggplot2::element_text(family = title_family, hjust = 0, face = "bold", size = 14),
       plot.subtitle = ggplot2::element_text(size = 9),
-      plot.caption  = ggplot2::element_text(size = 7.2,
-                                            margin = ggplot2::margin(t = 20),
-                                            color = "gray40"),
+      plot.caption  = ggplot2::element_text(
+        size = 7.2,
+        margin = ggplot2::margin(t = 20),
+        color = "gray40"),
       plot.margin   = ggplot2::unit(c(1, 1, 2, 1), "lines"),
 
       # Facet Details
@@ -100,8 +101,7 @@ theme_gmri <- function(base_size = 10,
   return(gmri_ggtheme)
 }
 
-# Testing
-# ggplot(mtcars, aes(mpg, cyl)) + geom_point() + theme_gmri(panel.grid.major = element_line(color = "red"))
+
 
 
 
@@ -134,6 +134,136 @@ map_theme <- function(...){
 
   return(ggmap_theme)
 }
+
+
+
+
+#' @title Simple ggplot theme for cleaner look
+#'
+#' @param base_size Base text size (font numbers)
+#' @param base_family Base Text font family
+#' @param title_family Title font family
+#' @param ... Additional arguments to pass on the fly using ggplot2::theme()
+#'
+#' @return Returns ggplot theme
+#' @export
+#'
+#' @examples ggplot2::ggplot(mtcars) + theme_gmri_simple()
+theme_gmri_simple <- function(
+    base_size = 10,
+    base_family  = "Avenir",
+    title_family = "Avenir",
+    ...) {
+
+  # Set up theme
+  gmri_ggtheme <- ggthemes::theme_foundation(
+    base_size   = base_size,
+    base_family = base_family) +
+    ggplot2::theme(
+
+      # Major Elements
+      text       = ggplot2::element_text(size = 12, family = base_family),
+      line       = ggplot2::element_line(linetype = 1),
+      rect       = ggplot2::element_rect(
+        fill = "transparent",
+        linetype = 0,
+        colour = NA),
+
+      # Axis elements
+      axis.line    = ggplot2::element_line(),
+      axis.ticks   = ggplot2::element_line(),
+      axis.text    = ggplot2::element_text(size = 10),
+      axis.title   = ggplot2::element_text(size = 12),
+
+      # Legend Elements
+      legend.background = ggplot2::element_rect(),
+      legend.title      = ggplot2::element_text(size = 14, face = "bold"),
+      legend.text       = ggplot2::element_text(size = 12),
+      legend.title.position = "left",
+      legend.position = "bottom",
+      legend.box = "horizontal",
+
+      # Panel/Grid Setup
+      panel.grid.major   = ggplot2::element_line(colour = "#D3D3D330"),
+      panel.grid.minor   = ggplot2::element_blank(),
+
+      # Title and Caption Details
+      plot.title    = ggplot2::element_text(face = "bold", family = title_family, size = 14, hjust = 0),
+      plot.subtitle = ggplot2::element_text(size = 9),
+      plot.caption  = ggplot2::element_text(
+        size = 7.2,
+        margin = ggplot2::margin(t = 20),
+        color = "gray40"),
+      plot.margin   = ggplot2::unit(c(3, 3, 3, 3), "pt"),
+
+      # Facet Details
+      strip.text = ggplot2::element_text(face = "bold", size = 12)) +
+
+    # Add any additional theme calls to tweak on the fly
+    ggplot2::theme(...)
+
+  return(gmri_ggtheme)
+}
+
+
+
+
+
+# Theme options, with ellipse to add more
+#' @title Simple Map theme with solid frame borders
+#'
+#' @param fontfam font family to control the plotting of text
+#' @param ...
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+theme_map_simple <- function(fontfam = "Avenir", ...){
+
+  list(
+    ggplot2::theme(
+      # Font across all text
+      text = ggplot2::element_text(family = fontfam),
+
+      # Titles + Text
+      plot.title = ggplot2::element_text(hjust = 0, face = "bold", size = 20),
+      plot.subtitle = ggplot2::element_text(size = 18),
+      plot.margin = ggplot2::margin(t = 3, r = 3, b = 3, l = 3, unit = "pt"),
+
+      # Grids and Axes
+      panel.background = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "black", fill = "transparent"),
+      panel.grid.major.y = ggplot2::element_line(color = "#D3D3D330"),
+      panel.grid.major.x = ggplot2::element_line(color = "#D3D3D330"),
+      axis.ticks = ggplot2::element_blank(),
+      axis.text    = ggplot2::element_text(size = 10),
+      axis.title   = ggplot2::element_text(size = 12),
+
+
+      # Legend
+      legend.title = ggplot2::element_text(size = 14, face = "bold"),
+      legend.text = ggplot2::element_text(size = 12),
+      legend.background = ggplot2::element_rect(
+        color = "transparent",
+        fill = "white",
+        linewidth = 0.25),
+      legend.position = "bottom",
+      legend.title.position = "left",
+      legend.spacing.y = unit(1.75, "lines"),
+
+      # Strip behavior
+      strip.background = ggplot2::element_rect(fill = "transparent", color = NA),
+      strip.text = ggplot2::element_text(
+        face     = "bold",
+        size     = 12,
+        family   = fontfam),
+
+
+      # Use ellipses for tweaks on the fly:
+      ...))
+}
+
 
 
 # set standard publication-figure theme
